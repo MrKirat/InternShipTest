@@ -4,18 +4,28 @@ import institution.University;
 import institution.interlink.Internship;
 import person.Student;
 import person.consciousness.Knowledge;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class Application {
+    public static List<Student> createStudents() {
+        return asList(
+                new Student("John Kostenko", new Knowledge(9)),
+                new Student("Andrew Kostenko", new Knowledge(3)),
+                new Student("Julia Veselkina", new Knowledge(6)),
+                new Student("Maria Perechrest", new Knowledge(4)),
+                new Student("Ivan Tallman", new Knowledge(5))
+        );
+    }
+
     public static void main(String[] args) {
         
         //create a university
         University university = new University("CH.U.I.");
         
         //create a students and add students to the university list
-        university.addStudent(new Student("John Kostenko", new Knowledge(9)));
-        university.addStudent(new Student("Andrew Kostenko", new Knowledge(3)));
-        university.addStudent(new Student("Julia Veselkina", new Knowledge(6)));
-        university.addStudent(new Student("Maria Perechrest", new Knowledge(4)));
+        university.setStudents(createStudents());
         
         //show the list of university students
         System.out.println("List of university's students:");
