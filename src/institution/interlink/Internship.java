@@ -2,6 +2,7 @@ package institution.interlink;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import person.Student;
 
 public class Internship {
@@ -11,12 +12,23 @@ public class Internship {
     public Internship(String name) {
         this.name = name;
     }
-
+    
     public void setStudents(List <Student> students) { //adding students to the intenship
-        for(Student st: students){
-            if(!this.students.contains(st) && st.getKnowledge().getLevel() > 5){
-                this.students.add(st);
+        Stream<Student> streamStudents = students.stream();
+        double averageLevel = streamStudents
+                .distinct()
+                .mapToDouble(n -> n.getKnowledge().getLevel())
+                .average()
+                .orElse(0);
+        System.out.println("averageLevel:" + averageLevel);
+        if(averageLevel != 0) {
+            for (Student st : students) {
+                if (!this.students.contains(st) && st.getKnowledge().getLevel() > averageLevel) {
+                    this.students.add(st);
+                }
             }
+        } else {
+            System.out.println("Students for internship is not.");
         }
     }
 
